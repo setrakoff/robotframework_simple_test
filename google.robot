@@ -1,31 +1,30 @@
 *** Settings ***
-# Library 			Selenium2Library
-Library 			SeleniumLibrary
-Test Setup			Go to G
-Suite Teardown		Close All Browsers
+Library           SeleniumLibrary
+Test Setup        Go to G
+Suite Teardown    Close All Browsers
 
 *** Variables ***
-${URL}		http://google.com
+${URL}    http://google.com
 
 *** Test Cases ***
 Simple example Search
     [Tags]    tag1
-	Simple Search		Robot Framework
-
+    Simple Search    Robot Framework
 
 *** Keywords ***
 Simple Search
-	[Arguments]		${SearchWord}
-	Input Text    name:q    ${SearchWord}
-	Press Keys    name:q    ENTER
-	Wait Until Element Is Visible    class:logo
-	Location Should Contain    /search?q=Robot+Framework
+    [Arguments]    ${SearchWord}
+    Input Text    name:q    ${SearchWord}
+    Press Keys    name:q    ENTER
+    Wait Until Element Is Visible    class:logo
+    Location Should Contain    /search?q=Robot+Framework
 
 Go to G
-	Create WebDriver With Chrome Options
+    Create WebDriver With Chrome Options
     Go To    ${URL}
-	Sleep    5s
-
+    Sleep    5s
+    ${curr_location}    Get Location
+    Log To Console    Current location is: ${curr_location}
 
 Create WebDriver With Chrome Options
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
