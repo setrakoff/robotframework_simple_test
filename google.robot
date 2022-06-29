@@ -18,12 +18,12 @@ Simple Search
 	[Arguments]		${SearchWord}
 	Input Text    name:q    ${SearchWord}
 	Press Keys    name:q    ENTER
+	Wait Until Element Is Visible    class:logo
+	Location Should Contain    /search?q=Robot+Framework
 
 Go to G
-	#Open Browser	${URL}		Chrome
 	Create WebDriver With Chrome Options
     Go To    ${URL}
-	Maximize Browser Window
 	Sleep    5s
 
 
