@@ -1,7 +1,7 @@
 *** Settings ***
 Library           SeleniumLibrary
 Test Setup        Go to G
-Suite Teardown    Close All Browsers
+Suite Teardown    Teardown
 
 *** Variables ***
 ${URL}    http://google.com
@@ -20,16 +20,10 @@ Simple Search
     Wait Until Element Is Visible    class:logo
     Location Should Contain    /search?q=Robot+Framework
 
-Go to G
-    Create WebDriver With Chrome Options
-    Go To    ${URL}
-    Sleep    5s
-    ${curr_location}    Get Location
-    Log To Console    Current location is: ${curr_location}
-
 Create WebDriver With Chrome Options
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
     Call Method    ${chrome_options}    add_argument    enable-automation
+    #Call Method    ${chrome_options}    add_argument    --user-data-dir=chrome-data
     Call Method    ${chrome_options}    add_argument    --log-level\=3
     Call Method    ${chrome_options}    add_argument    --start-maximized
     Call Method    ${chrome_options}    add_argument    --headless
@@ -39,3 +33,15 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --dns-prefetch-disable
     Call Method    ${chrome_options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    chrome_options=${chrome_options}
+
+
+Go to G
+    Create WebDriver With Chrome Options
+    Go To    ${URL}
+    Sleep    5s
+    ${curr_location}    Get Location
+    Log To Console    Current location is: ${curr_location}
+
+Teardown
+    Capture Page Screenshot    EMBED
+    Close All Browsers
