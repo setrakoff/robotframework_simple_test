@@ -14,6 +14,7 @@ Simple example Search
 *** Keywords ***
 Simple Search
     [Arguments]    ${SearchWord}
+    Wait Until Element Is Enabled    name:q
     Input Text    name:q    ${SearchWord}
     Press Keys    name:q    ENTER
     Wait Until Element Is Visible    class:logo
