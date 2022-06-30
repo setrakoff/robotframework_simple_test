@@ -15,6 +15,7 @@ Simple example Search
 *** Keywords ***
 Simple Search
     [Arguments]    ${SearchWord}
+    Close Coockies Form If It Is
     Wait Until Element Is Enabled    name:q
     Input Text    name:q    ${SearchWord}
     Press Keys    name:q    ENTER
@@ -24,7 +25,6 @@ Simple Search
 Create WebDriver With Chrome Options
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
     Call Method    ${chrome_options}    add_argument    enable-automation
-    #Call Method    ${chrome_options}    add_argument    --user-data-dir=chrome-data
     Call Method    ${chrome_options}    add_argument    --log-level\=3
     Call Method    ${chrome_options}    add_argument    --start-maximized
     Call Method    ${chrome_options}    add_argument    --headless
@@ -41,3 +41,10 @@ Go to G
     Sleep    5s
     ${curr_location}    Get Location
     Log To Console    Current location is: ${curr_location}
+
+Close Coockies Form If It Is
+    ${is_visible}    Run Keyword And Return Status    Element Should Be Visible   id:W0wltc
+    IF  ${is_visible}
+        Click Element                        id:W0wltc
+        Wait Until Element Is Not Visible    id:W0wltc
+    END
