@@ -1,7 +1,8 @@
 *** Settings ***
 Library           SeleniumLibrary
 Test Setup        Go to G
-Suite Teardown    Teardown
+Test Teardown     Capture Page Screenshot    EMBED
+Suite Teardown    Close All Browsers
 
 *** Variables ***
 ${URL}    http://google.com
@@ -34,14 +35,9 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    chrome_options=${chrome_options}
 
-
 Go to G
     Create WebDriver With Chrome Options
     Go To    ${URL}
     Sleep    5s
     ${curr_location}    Get Location
     Log To Console    Current location is: ${curr_location}
-
-Teardown
-    Capture Page Screenshot    EMBED
-    Close All Browsers
