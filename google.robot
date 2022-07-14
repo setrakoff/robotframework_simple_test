@@ -16,7 +16,7 @@ Simple example Search
 Simple Search
     [Arguments]    ${SearchWord}
     Close Coockies Form If It Is
-    Wait Until Element Is Enabled    id:view40    60 sec
+    Wait Until Element Is Enabled    id:view40    60s
     Input Text    id:view40    setrakov
     Input Text    id:view42    123456
     Press Keys    id:view42    ENTER
@@ -40,8 +40,9 @@ Create WebDriver With Chrome Options
 Go to URL
     Create WebDriver With Chrome Options
     Go To    ${URL}
-    Sleep    5s
+    Sleep    30s
     ${curr_location}    Get Location
+    Log To Console    Current location is: ${curr_location}
     Log Source
 
 Close Coockies Form If It Is
