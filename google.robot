@@ -16,7 +16,7 @@ Simple example Search
 Simple Search
     [Arguments]    ${SearchWord}
     Close Coockies Form If It Is
-    Wait Until Element Is Enabled    id:view40
+    Wait Until Element Is Enabled    id:view40    60 sec
     Input Text    id:view40    setrakov
     Input Text    id:view42    123456
     Press Keys    id:view42    ENTER
