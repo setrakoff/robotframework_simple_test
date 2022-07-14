@@ -5,7 +5,8 @@ Test Teardown     Capture Page Screenshot    EMBED
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-${URL}    http://d-amossx-as-03.swi.srse.net:8114/AmdocsOSS/Portal/index.html
+#${URL}    http://d-amossx-as-03.swi.srse.net:8114/AmdocsOSS/Portal/index.html
+${URL}    http://google.com
 
 *** Test Cases ***
 Simple example Search
