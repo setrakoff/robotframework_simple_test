@@ -42,7 +42,7 @@ Go to URL
     Go To    ${URL}
     Sleep    5s
     ${curr_location}    Get Location
-    Log To Console    Current location is: ${curr_location}
+    Log Source
 
 Close Coockies Form If It Is
     ${is_visible}    Run Keyword And Return Status    Element Should Be Visible   id:W0wltc
