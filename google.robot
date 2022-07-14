@@ -30,7 +30,7 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --window-size\=1920,1080
     #Call Method    ${chrome_options}    add_argument    --log-level\=3
     #Call Method    ${chrome_options}    add_argument    --start-maximized
-    Call Method    ${chrome_options}    add_argument    --headless
+    #Call Method    ${chrome_options}    add_argument    --headless
     Call Method    ${chrome_options}    add_argument    --no-sandbox
     Call Method    ${chrome_options}    add_argument    --disable-extensions
     Call Method    ${chrome_options}    add_argument    --ignore-certificate-errors
