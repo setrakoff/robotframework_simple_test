@@ -5,7 +5,7 @@ Test Teardown     Capture Page Screenshot    EMBED
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-${URL}    http://d-amossx-as-03.swi.srse.net:8114/AmdocsOSS/Portal/login.html
+${URL}    http://d-amossx-as-03.swi.srse.net:8114/AmdocsOSS/Portal/index.html
 
 *** Test Cases ***
 Simple example Search
@@ -16,7 +16,7 @@ Simple example Search
 Simple Search
     [Arguments]    ${SearchWord}
     Close Coockies Form If It Is
-    Wait Until Element Is Enabled    id:view40    60s
+    Wait Until Element Is Enabled    id:view40    30s
     Input Text    id:view40    setrakov
     Input Text    id:view42    123456
     Press Keys    id:view42    ENTER
@@ -40,7 +40,7 @@ Create WebDriver With Chrome Options
 Go to URL
     Create WebDriver With Chrome Options
     Go To    ${URL}
-    Sleep    30s
+    Sleep    10s
     ${curr_location}    Get Location
     Log To Console    Current location is: ${curr_location}
     Log Source
