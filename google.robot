@@ -1,11 +1,11 @@
 *** Settings ***
 Library           SeleniumLibrary
-Test Setup        Go to G
+Test Setup        Go to URL
 Test Teardown     Capture Page Screenshot    EMBED
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-${URL}    http://google.com
+${URL}    http://d-amossx-as-03.swi.srse.net:8114/AmdocsOSS/Portal/login.html
 
 *** Test Cases ***
 Simple example Search
@@ -16,17 +16,19 @@ Simple example Search
 Simple Search
     [Arguments]    ${SearchWord}
     Close Coockies Form If It Is
-    Wait Until Element Is Enabled    name:q
-    Input Text    name:q    ${SearchWord}
-    Press Keys    name:q    ENTER
-    Wait Until Element Is Visible    class:logo
-    Location Should Contain    /search?q=Robot+Framework
+    Wait Until Element Is Enabled    id:view40
+    Input Text    id:view40    setrakov
+    Input Text    id:view42    123456
+    Press Keys    id:view42    ENTER
+    Wait Until Element Is Visible    id:ossui-mainframe-header-logout
+    Location Should Contain    /AmdocsOSS/Portal/index.html
 
 Create WebDriver With Chrome Options
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
     Call Method    ${chrome_options}    add_argument    enable-automation
+    Call Method    ${chrome_options}    add_argument    --window-size\=1920,1080
     Call Method    ${chrome_options}    add_argument    --log-level\=3
-    Call Method    ${chrome_options}    add_argument    --start-maximized
+    #Call Method    ${chrome_options}    add_argument    --start-maximized
     Call Method    ${chrome_options}    add_argument    --headless
     Call Method    ${chrome_options}    add_argument    --no-sandbox
     Call Method    ${chrome_options}    add_argument    --disable-extensions
@@ -35,7 +37,7 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    chrome_options=${chrome_options}
 
-Go to G
+Go to URL
     Create WebDriver With Chrome Options
     Go To    ${URL}
     Sleep    5s
