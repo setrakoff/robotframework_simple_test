@@ -6,17 +6,20 @@ Test Teardown     Capture Page Screenshot    EMBED
 Suite Teardown    Close All Browsers
 
 *** Variables ***
-${URL}               http://google.com
+${URL}               https://d-amossx-as-03.swi.srse.net:8701/login
+${i_username_ACA}    name:user-name
+${i_password_ACA}    name:password
+${btn_login}         xpath://button[.='Login']
 ${WAIT}              5s
 
 *** Test Cases ***
 Simple example
-    [Tags]    google
-    Wait Until Element Is Enabled    name:q
-    Input Text    name:q    Robot Framework
-    Press Keys    name:q    ENTER
-    Wait Until Element Is Visible    class:logo
-    Location Should Contain    /search?q=Robot+Framework
+    [Tags]    aca
+    Wait Until Element Is Enabled    ${i_username_ACA}    ${WAIT}
+    Input Text      ${i_username_ACA}    setrakov
+    Input Text      ${i_password_ACA}    123456
+    Click Button    ${btn_login}
+    Wait Until Element Is Visible    //a/span[text()='Order Entry']
 
 
 *** Keywords ***
@@ -27,16 +30,16 @@ Simple Setup
 
 Create WebDriver With Chrome Options
     ${chrome_options} =    Evaluate    selenium.webdriver.ChromeOptions()
-    Call Method    ${chrome_options}    add_argument    enable-automation
+    #Call Method    ${chrome_options}    add_argument    enable-automation
     Call Method    ${chrome_options}    add_argument    --window-size\=1920,1080
-    Call Method    ${chrome_options}    add_argument    --log-level\=3
-    Call Method    ${chrome_options}    add_argument    --start-maximized
+    #Call Method    ${chrome_options}    add_argument    --log-level\=3
+    #Call Method    ${chrome_options}    add_argument    --start-maximized
     Call Method    ${chrome_options}    add_argument    --headless
     Call Method    ${chrome_options}    add_argument    --no-sandbox
     Call Method    ${chrome_options}    add_argument    --disable-extensions
     Call Method    ${chrome_options}    add_argument    --ignore-certificate-errors
-    Call Method    ${chrome_options}    add_argument    --dns-prefetch-disable
-    Call Method    ${chrome_options}    add_argument    --disable-gpu
+    #Call Method    ${chrome_options}    add_argument    --dns-prefetch-disable
+    #Call Method    ${chrome_options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    chrome_options=${chrome_options}
 
 Go to URL
