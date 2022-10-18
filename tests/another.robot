@@ -1,10 +1,13 @@
 *** Settings ***
 Resource          ../resources/variables/vars_general.robot
 Resource          ../resources/keywords/kws_general.robot
+Resource          ../resources/keywords/kws_another.robot
 Library           ../resources/keywords/kws_manual_lib.py
 Library           SeleniumLibrary
 Library           OperatingSystem
 Library           Collections
+Library           String
+Library           RPA.Archive
 Test Setup        Simple Setup
 Test Teardown     Capture Page Screenshot    EMBED
 Suite Teardown    Close All Browsers
@@ -62,3 +65,33 @@ Example Upload File
     Click Element    id:file-submit
     Element Text Should Be  tag:h3  File Uploaded!
     Element Text Should Be  id:uploaded-files  image_edge.jpeg
+
+Example Download File
+    [Tags]    download_file
+    [Documentation]  Simple download file from source
+    [Setup]   Simple Setup    https://the-internet.herokuapp.com/download
+    ${target}    Set Variable     //a[contains(text(),'.txt')][1]
+    Wait Until Element Is Visible    ${target}
+    ${filename}    Get Text    ${target}
+    Click Element    ${target}
+    #Sleep    5s
+    ${path}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done    ${dowload_path}    ${filename}
+    File Should Not Be Empty    ${path}
+
+Example Read File, Change Content And Create New File
+    [Tags]    create_file
+    [Documentation]  Simple upload file from project structure
+    [Setup]   ${EMPTY}
+    ${path}    Normalize Path    ~/Downloads/w1
+    ${file}    Get File    ${path}/widget_data.json
+    ${file}    Replace String    ${file}    "widget_name"    "1234 New Name"
+    Create File    ${path}/widget_data_new.json    ${file}
+
+Example Read ZIP, Change Content, Create New File, Archive to ZIP again
+    [Tags]    unzip_file    zip_file
+    [Documentation]  Simple upload file from project structure
+    [Setup]   ${EMPTY}
+    ${path}    Normalize Path    ~/Downloads/w1
+    ${file}    Extract Archive    ${path}/archive1.zip    ${path}/archive1
+    Archive Folder With Zip    ${path}/archive1    ${path}/archive2.zip
+

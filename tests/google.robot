@@ -27,7 +27,7 @@ Find GitHub Google Result
     Input Text    name:q    Robot Framework
     Press Keys    name:q    ENTER
     Wait Until Element Is Visible    class:logo
-    ${widget_we}    GeT Search Result    Robot Framework - GitHub
+    ${widget_we}    Get Search Result    Robot Framework - GitHub
     Should Not Be Equal    ${widget_we}    ${EMPTY}
     ${locator_list}    Create List    ${widget_we}    xpath:.//a[./h3]
     Click Element    ${locator_list}
@@ -35,9 +35,25 @@ Find GitHub Google Result
     Log Location
 
 
+Debug Case
+    [Tags]    debur_oleg
+    Wait Until Element Is Enabled    name:q
+    ${webelement}    Get WebElement    name:q
+    Find Phrase    w=${webelement}    phrase=Robot Framework
+    Location Should Contain    /search?q=Robot+Framework
+
 
 *** Keywords ***
-GeT Search Result
+Find Phrase
+    [Arguments]    &{param}
+    ${param_keys}    Get Dictionary Keys    ${param}
+    IF  'w' in ${param_keys}
+        Input Text    ${param.w}    ${param.phrase}
+        Press Keys    name:q    ENTER
+    Wait Until Element Is Visible    class:logo
+    END
+
+Get Search Result
     [Arguments]    ${res_header}
     ${widget_we}    Set Variable    ${EMPTY}
     @{res_list}    Get WebElements    //div[@id='rso']/div

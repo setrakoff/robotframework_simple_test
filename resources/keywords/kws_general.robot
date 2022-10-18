@@ -2,6 +2,7 @@
 Resource          ../variables/vars_general.robot
 Library           SeleniumLibrary
 Library           Collections
+Library           OperatingSystem
 
 *** Keywords ***
 Simple Setup
@@ -22,14 +23,15 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --ignore-certificate-errors
     Call Method    ${chrome_options}    add_argument    --dns-prefetch-disable
     Call Method    ${chrome_options}    add_argument    --disable-gpu
+    ${prefs}  Create Dictionary
+    ...  download.default_directory=${dowload_path}
+    Call Method    ${chrome_options}    add_experimental_option    prefs    ${prefs}
     Create WebDriver    Chrome    chrome_options=${chrome_options}
 
 Go to URL
     [Arguments]    ${curr_url}
     Go To    ${curr_url}
     Sleep    ${WAIT}
-    ${curr_location}    Get Location
-    Log To Console    Current location is: ${curr_location}
     Log Source
 
 Close Cookies Form If It Is
