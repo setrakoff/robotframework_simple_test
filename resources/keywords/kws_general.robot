@@ -24,7 +24,7 @@ Create WebDriver With Chrome Options
     Call Method    ${chrome_options}    add_argument    --dns-prefetch-disable
     Call Method    ${chrome_options}    add_argument    --disable-gpu
     ${prefs}  Create Dictionary
-    ...  download.default_directory=${dowload_path}
+    ...  download.default_directory=${DOWNLOAD_PATH}
     Call Method    ${chrome_options}    add_experimental_option    prefs    ${prefs}
     Create WebDriver    Chrome    chrome_options=${chrome_options}
 

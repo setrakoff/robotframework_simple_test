@@ -13,7 +13,7 @@ ${WAIT}              5s
 
 *** Test Cases ***
 Simple Example
-    [Tags]    google
+    [Tags]    google    google_search
     Wait Until Element Is Enabled    name:q
     Input Text    name:q    Robot Framework
     Press Keys    name:q    ENTER
@@ -22,7 +22,7 @@ Simple Example
 
 
 Find GitHub Google Result
-    [Tags]    google    github
+    [Tags]    google    google_result
     Wait Until Element Is Enabled    name:q
     Input Text    name:q    Robot Framework
     Press Keys    name:q    ENTER
@@ -36,7 +36,7 @@ Find GitHub Google Result
 
 
 Debug Case
-    [Tags]    debur_oleg
+    [Tags]    debug_oleg
     Wait Until Element Is Enabled    name:q
     ${webelement}    Get WebElement    name:q
     Find Phrase    w=${webelement}    phrase=Robot Framework

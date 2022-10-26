@@ -75,7 +75,7 @@ Example Download File
     ${filename}    Get Text    ${target}
     Click Element    ${target}
     #Sleep    5s
-    ${path}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done    ${dowload_path}    ${filename}
+    ${path}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done    ${DOWNLOAD_PATH}    ${filename}
     File Should Not Be Empty    ${path}
 
 Example Read File, Change Content And Create New File
@@ -88,10 +88,36 @@ Example Read File, Change Content And Create New File
     Create File    ${path}/widget_data_new.json    ${file}
 
 Example Read ZIP, Change Content, Create New File, Archive to ZIP again
-    [Tags]    unzip_file    zip_file
-    [Documentation]  Simple upload file from project structure
+    [Tags]    rpa_unzip_file    rpa_zip_file
+    [Documentation]  Simple working with zip file by the RPA.Archive library
     [Setup]   ${EMPTY}
     ${path}    Normalize Path    ~/Downloads/w1
     ${file}    Extract Archive    ${path}/archive1.zip    ${path}/archive1
     Archive Folder With Zip    ${path}/archive1    ${path}/archive2.zip
+
+Example Extract ZIP By Manual Method
+    [Tags]    unzip_file
+    [Documentation]  Simple working with zip file by manual method
+    [Setup]   ${EMPTY}
+    ${rndString}    Generate Random String    8    [LETTERS][NUMBERS]
+    ${path}    Normalize Path    ~/Downloads/w1
+    Extract Files From Zip    ${path}/archive1.zip    ${path}/Archive_${rndString}
+
+Example Archive Single File To ZIP By Manual Method
+    [Tags]    zip_file
+    [Documentation]  Simple working with zip file by manual method
+    [Setup]   ${EMPTY}
+    ${rndString}    Generate Random String    8    [LETTERS][NUMBERS]
+    ${path}    Normalize Path    ~/Downloads/w1
+    Archive File To Zip   ${path}    widget_data.json    ${path}/archive1.zip
+
+
+Example Parse JSON And Check It
+    [Tags]    json_file1
+    [Documentation]  Simple upload file from project structure
+    [Setup]   ${EMPTY}
+    ${path}    Normalize Path    ~/Downloads/d-amossx-as-03_AT Manually Created Order Type EYuGZiBl.json
+    ${file}    Get File    ${path}
+    ${result}    JSON Loads    ${file}
+    Log To Console    ${result}
 
